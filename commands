@@ -1,0 +1,63 @@
+to start run live server plugin , xampp with mysql and apache , live server and npm run build
+
+
+How to Install Vite with WordPress
+Follow these steps to set up Vite with WordPress, ensuring Tailwind CSS auto-completion and live reloading.
+
+1. Configure Tailwind CSS Auto-Completion in Visual Studio Code
+Add the following settings to your settings.json file in Visual Studio Code to enable Tailwind CSS auto-completion in PHP files:
+
+{
+  "tailwindCSS.includeLanguages": {
+    "php": "php"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  }
+}
+2. Install Live Server Extension for Chrome
+To enable live reloading for your WordPress site running on XAMPP, install the Live Server extension for Chrome.
+
+Actual server URL: http://127.0.0.1/wordpress/
+Live server URL: http://127.0.0.1:5500
+3. Tailwind CSS Configuration
+Update your tailwind.config.js to monitor changes in PHP files:
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./**/*.php",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+4. Modify package.json
+To enable continuous building of your project, update the scripts section in package.json:
+
+"scripts": {
+  "build": "vite build --watch"
+}
+This will make Vite continuously build the project.
+
+5. Adjust Vite Configuration
+Update your vite.config.js to prevent Vite from generating random filenames for CSS and JS files:
+
+// vite.config.js
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: '[name].js',
+        chunkFileNames: '[name].js',
+        assetFileNames: '[name][extname]'
+      }
+    }
+  }
+});
+By following these steps, you'll have a streamlined development environment with Vite and WordPress, including Tailwind CSS auto-completion and live reloading.
